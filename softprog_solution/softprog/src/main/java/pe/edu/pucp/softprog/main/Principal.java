@@ -6,6 +6,7 @@ import pe.edu.pucp.softprog.rrhh.model.Area;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Principal {
@@ -17,8 +18,6 @@ public class Principal {
         System.out.println(area.getNombre());
 
         try {
-
-
             Connection con = DBManager.getInstance().getConnection();
 
             //para ejecutar alguna instruccion dentro de la base datos
@@ -44,6 +43,34 @@ public class Principal {
             System.out.println("ERROR: " + ex.getMessage());
         }
 
+
+
+        try {
+            Connection con = DBManager.getInstance().getConnection();
+
+            Statement st = con.createStatement();
+            String sql = "SELECT id_area, nombre FROM area WHERE activa = 1";
+            //cuando es select es excecute query,
+            // devuelve un tipo resource(un CURSOR)
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()){
+                /* envez de esto es mejor otra cosa
+                int idArea = rs.getInt("id_area");
+                String nombre = rs.getString("nombre");
+                System.out.println(idArea + ". " + nombre);
+                 */
+                Area areaTemp = new Area();
+                areaTemp.setIdArea(rs.getInt("id_area"));
+                areaTemp.setNombre(rs.getString("nombre"));
+                System.out.println(areaTemp.getIdArea() + ". " + areaTemp.getNombre());
+            }
+            rs.close();
+            con.close();
+
+        } catch (Exception ex){
+            System.out.println("ERROR: " + ex.getMessage());
+        }
 
     }
 }
