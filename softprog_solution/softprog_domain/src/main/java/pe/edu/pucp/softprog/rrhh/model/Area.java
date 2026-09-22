@@ -1,7 +1,10 @@
 package pe.edu.pucp.softprog.rrhh.model;
 
+import java.util.List;
+
 public class Area {
 	private int idArea;
+	private List<Empleado> empleados;
 	private String nombre;
 	private boolean activo;
 
@@ -26,6 +29,10 @@ public class Area {
 	public void setIdArea(int idArea) {
 		this.idArea = idArea;
 	}
+
+	public List<Empleado> getEmpleados() {return empleados;}
+
+	public void setEmpleados(List<Empleado> empleados) {this.empleados = empleados;}
 
 	public String getNombre() {
 		return nombre;
