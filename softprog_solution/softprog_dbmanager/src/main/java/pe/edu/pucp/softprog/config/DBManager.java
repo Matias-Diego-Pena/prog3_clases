@@ -14,9 +14,6 @@ public class DBManager {
     private final String port ;
     private final String database;
 
-
-
-
     private Connection con;
     private final String DB_CRDENTIALS_FILE = "db";
 

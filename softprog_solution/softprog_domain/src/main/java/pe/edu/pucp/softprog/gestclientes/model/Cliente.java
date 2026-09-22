@@ -3,10 +3,19 @@ package pe.edu.pucp.softprog.gestclientes.model;
 import pe.edu.pucp.softprog.rrhh.model.Persona;
 import pe.edu.pucp.softprog.ventas.model.OrdenVenta;
 
+import java.util.Date;
 import java.util.List;
 
 public class Cliente extends Persona {
     private double lineaCredito;
+
+    public Cliente(String DNI, String nombre, String apellidoPaterno, char genero
+            , Date fechaNacimiento, double lineaCredito, Categoria categoria) {
+        super(DNI, nombre, apellidoPaterno, genero, fechaNacimiento);
+        this.lineaCredito = lineaCredito;
+        this.categoria = categoria;
+    }
+
     private Categoria categoria;
     private List<OrdenVenta> ordenesVenta;
 

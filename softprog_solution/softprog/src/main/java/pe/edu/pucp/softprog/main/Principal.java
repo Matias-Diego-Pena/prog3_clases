@@ -2,6 +2,10 @@ package pe.edu.pucp.softprog.main;
 
 
 import pe.edu.pucp.softprog.config.DBManager;
+import pe.edu.pucp.softprog.gestclientes.dao.ClienteDAO;
+import pe.edu.pucp.softprog.gestclientes.imp.ClienteImpl;
+import pe.edu.pucp.softprog.gestclientes.model.Categoria;
+import pe.edu.pucp.softprog.gestclientes.model.Cliente;
 import pe.edu.pucp.softprog.rrhh.dao.AreaDAO;
 import pe.edu.pucp.softprog.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.softprog.rrhh.imp.AreaImpl;
@@ -13,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,34 +36,6 @@ public class Principal {
             System.out.println("El area " + area.getNombre()
                     + " se registro correctamente");
         }
-
-        /* ya no se tiene que hace esta cosa grande
-        try {
-            Connection con = DBManager.getInstance().getConnection();
-
-            //para ejecutar alguna instruccion dentro de la base datos
-            Statement st = con.createStatement();
-            //indicamos la instruccion
-            String sql = "INSERT INTO area(nombre, activa) VALUES ('"
-                    +area.getNombre() + "',1)";
-
-            //ejecutar la instruccion
-
-            int resultado = st.executeUpdate(sql);
-
-            //verificamos
-            if (resultado == 1){
-                System.out.println("el area: " + area.getNombre() + " se registro " +
-                        "en la base de datos");
-            } else {
-                System.out.println("hubo un error al registrar");
-            }
-            //cerrar la conexion
-            con.close();
-        } catch(Exception ex) {
-            System.out.println("ERROR: " + ex.getMessage());
-        }
-         */
 
         List<Area> areas = daoArea.listarTodos();
 
@@ -100,42 +77,24 @@ public class Principal {
 
 
 
+        Cliente cliente = new Cliente("97133456","MARIA","GUEVARA"
+               ,'F', new Date(),2100.00, Categoria.STANDARD);
 
 
-
-
+        ClienteDAO daoCliente = new ClienteImpl();
         
-
-
-        //este ya no cuenta xd
-        /*
-        try {
-            Connection con = DBManager.getInstance().getConnection();
-
-            Statement st = con.createStatement();
-            String sql = "SELECT id_area, nombre FROM area WHERE activa = 1";
-            //cuando es select es excecute query,
-            // devuelve un tipo resource(un CURSOR)
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()){
-                // envez de esto es mejor otra cosa
-                //int idArea = rs.getInt("id_area");
-                //String nombre = rs.getString("nombre");
-                //System.out.println(idArea + ". " + nombre);
-                //
-                Area areaTemp = new Area();
-                areaTemp.setIdArea(rs.getInt("id_area"));
-                areaTemp.setNombre(rs.getString("nombre"));
-                System.out.println(areaTemp.getIdArea() + ". " + areaTemp.getNombre());
-            }
-            rs.close();
-            con.close();
-
-        } catch (Exception ex){
-            System.out.println("ERROR: " + ex.getMessage());
+        if(daoCliente.insertar(cliente)!=0){
+            System.out.println("Se inserto el registro del Cliente");
         }
-        */
+
+
+        List<Cliente> clientes = daoCliente.listarPorDNINombre("PA");
+        for (Cliente c: clientes){
+            System.out.println(c.getIdPersona()+". "+
+                    c.getNombre()+" "+ c.getApellidoPaterno());
+        }
+
+
 
     }
 }
