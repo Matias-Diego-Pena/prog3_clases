@@ -13,6 +13,7 @@
         <module>softprog</module>
         <module>softprog_dbmanager</module>
         <module>softprog_dao</module>
+        <module>softprog_bussiness_logic</module>
     </modules>
 
     <properties>

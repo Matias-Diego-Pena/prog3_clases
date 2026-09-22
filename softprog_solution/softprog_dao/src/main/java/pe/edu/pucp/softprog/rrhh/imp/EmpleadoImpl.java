@@ -18,7 +18,7 @@ public class EmpleadoImpl implements EmpleadoDAO {
 
 
 
-    //este es para llamar a un procedimiento
+    /*este es para llamar a un procedimiento
     @Override
     public int insertar(Empleado empleado) {
         String sql =
@@ -46,9 +46,9 @@ public class EmpleadoImpl implements EmpleadoDAO {
             throw new RuntimeException(ex);
         }
     }
+    */
 
-
-    /* este es con el prepared statement
+    //este es con el prepared statement
     @Override
     public int insertar(Empleado empleado) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,35 +65,46 @@ public class EmpleadoImpl implements EmpleadoDAO {
 
         //dentro del try ponemos la conexion para que cuando
         // termine se cierre sola
-        try(Connection con = DBManager.getInstance().getConnection();
-            PreparedStatement pst1 = con.prepareStatement(sql1);
-            PreparedStatement pst2 = con.prepareStatement(sql2);
-            PreparedStatement pst3 = con.prepareStatement(sql3)){
 
-            pst1.setString(1,empleado.getDNI());
-            pst1.setString(2,empleado.getNombre());
-            pst1.setString(3,empleado.getApellidoPaterno());
-            pst1.setString(4,String.valueOf(empleado.getGenero()));
-            pst1.setDate(5, new java.sql.Date(
-                    empleado.getFechaNacimiento().getTime()));
-            pst1.executeUpdate();
+        //ahora hacemos 2 try, uno para la conexion y otro para los statement
+        try(Connection con = DBManager.getInstance().getConnection()){
 
-            ResultSet rs = pst2.executeQuery();
-            rs.next();
-            empleado.setIdPersona(rs.getInt("id"));
+            con.setAutoCommit(false);
+            try(PreparedStatement pst1 = con.prepareStatement(sql1);
+                PreparedStatement pst2 = con.prepareStatement(sql2);
+                PreparedStatement pst3 = con.prepareStatement(sql3)){
 
-            pst3.setInt(1,empleado.getIdPersona());
-            pst3.setInt(2,empleado.getArea().getIdArea());
-            pst3.setString(3,empleado.getCargo());
-            pst3.setDouble(4,empleado.getSueldo());
-            return pst3.executeUpdate();
-
+                //registro persona
+                pst1.setString(1,empleado.getDNI());
+                pst1.setString(2,empleado.getNombre());
+                pst1.setString(3,empleado.getApellidoPaterno());
+                pst1.setString(4,String.valueOf(empleado.getGenero()));
+                pst1.setDate(5, new java.sql.Date(
+                        empleado.getFechaNacimiento().getTime()));
+                pst1.executeUpdate();
+                //captura del ID
+                ResultSet rs = pst2.executeQuery();
+                rs.next();
+                empleado.setIdPersona(rs.getInt("id"));
+                //registrar empleado
+                pst3.setInt(1,empleado.getIdPersona());
+                pst3.setInt(2,empleado.getArea().getIdArea());
+                pst3.setString(3,empleado.getCargo());
+                pst3.setDouble(4,empleado.getSueldo());
+                pst3.executeUpdate();
+                //confirmar cmabios
+                con.commit();
+                return empleado.getIdPersona();
+            }catch (Exception ex){
+                con.rollback();
+            throw new RuntimeException(ex);
+            }
         }catch (Exception ex){
             System.out.println("ERROR al insertar Empleado: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
-     */
+
 
 
 

@@ -6,6 +6,8 @@ import pe.edu.pucp.softprog.gestclientes.dao.ClienteDAO;
 import pe.edu.pucp.softprog.gestclientes.imp.ClienteImpl;
 import pe.edu.pucp.softprog.gestclientes.model.Categoria;
 import pe.edu.pucp.softprog.gestclientes.model.Cliente;
+import pe.edu.pucp.softprog.rrhh.bo.AreaBOImpl;
+import pe.edu.pucp.softprog.rrhh.boi.IAraeaBO;
 import pe.edu.pucp.softprog.rrhh.dao.AreaDAO;
 import pe.edu.pucp.softprog.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.softprog.rrhh.imp.AreaImpl;
@@ -94,6 +96,20 @@ public class Principal {
                     c.getNombre()+" "+ c.getApellidoPaterno());
         }
 
+
+
+
+        Area areaNueva = new Area();
+        areaNueva.setNombre("RRHH");
+
+        IAraeaBO areaBO = new AreaBOImpl();
+
+        try {
+            areaBO.insertar(areaNueva);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
 
 
     }
