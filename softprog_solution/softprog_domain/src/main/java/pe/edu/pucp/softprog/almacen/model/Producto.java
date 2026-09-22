@@ -1,11 +1,16 @@
 package pe.edu.pucp.softprog.almacen.model;
 
+import pe.edu.pucp.softprog.ventas.model.LineaOrdenVenta;
+
+import java.util.List;
+
 public class Producto {
     private int idProducto;
     private String nombre;
     private String unidadMedida;
     private double precio;
     private boolean activo;
+    private List<LineaOrdenVenta> lineasOrdenVenta;
 
     public Producto (){};
 
@@ -47,5 +52,13 @@ public class Producto {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public List<LineaOrdenVenta> getLineasOrdenVenta() {
+        return lineasOrdenVenta;
+    }
+
+    public void setLineasOrdenVenta(List<LineaOrdenVenta> lineasOrdenVenta) {
+        this.lineasOrdenVenta = lineasOrdenVenta;
     }
 }
