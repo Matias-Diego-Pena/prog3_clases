@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>softprog</artifactId>
+    <artifactId>softprog_dao</artifactId>
 
     <properties>
         <maven.compiler.source>26</maven.compiler.source>
@@ -23,28 +23,11 @@
             <artifactId>softprog_domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!-- Source: https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>26.7.0</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>pe.edu.pucp.softprog</groupId>
             <artifactId>softprog_dbmanager</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <dependency>
-            <groupId>pe.edu.pucp.softprog</groupId>
-            <artifactId>softprog_dao</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
-
-
 
 </project>

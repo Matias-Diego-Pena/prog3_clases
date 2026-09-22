@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/softprog/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/softprog/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/softprog_dao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/softprog_dao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/softprog_dbmanager/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/softprog_dbmanager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/softprog_domain/src/main/java" charset="UTF-8" />

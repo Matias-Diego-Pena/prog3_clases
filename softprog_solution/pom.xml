@@ -12,6 +12,7 @@
         <module>softprog_domain</module>
         <module>softprog</module>
         <module>softprog_dbmanager</module>
+        <module>softprog_dao</module>
     </modules>
 
     <properties>
