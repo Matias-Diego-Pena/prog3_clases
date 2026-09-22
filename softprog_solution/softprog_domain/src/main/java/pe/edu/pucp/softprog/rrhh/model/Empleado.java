@@ -1,6 +1,10 @@
 package pe.edu.pucp.softprog.rrhh.model;
 
+import pe.edu.pucp.softprog.ventas.model.OrdenVenta;
+
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class Empleado extends Persona{
     private Area area;
@@ -8,6 +12,7 @@ public class Empleado extends Persona{
     private String cargo;
     private double sueldo;
     private boolean activo;
+    private List<OrdenVenta> ordenesVenta;
 
     public Empleado(){};
 
@@ -57,5 +62,13 @@ public class Empleado extends Persona{
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public List<OrdenVenta> getOrdenesVenta() {
+        return ordenesVenta;
+    }
+
+    public void setOrdenesVenta(List<OrdenVenta> ordenesVenta) {
+        this.ordenesVenta = ordenesVenta;
     }
 }
