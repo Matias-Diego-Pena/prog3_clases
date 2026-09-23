@@ -1,6 +1,7 @@
 package pe.edu.pucp.softprog.rrhh.imp;
 
 import pe.edu.pucp.softprog.config.DBManager;
+import pe.edu.pucp.softprog.config.TransactionContext;
 import pe.edu.pucp.softprog.rrhh.dao.AreaDAO;
 import pe.edu.pucp.softprog.rrhh.model.Area;
 
@@ -17,15 +18,19 @@ public class AreaImpl implements AreaDAO {
         String sql = "INSERT INTO area(nombre,activa) " +
                 "VALUES('"+area.getNombre()+"',1)";
 
-        //dentro del try ponemos la conexion para que cuando
-        // termine se cierre sola
-        try(Connection con = DBManager.getInstance().getConnection();
-            Statement st = con.createStatement()){
-            return st.executeUpdate(sql);
-        }catch (Exception ex){
-            System.out.println("ERROR al insertar Area: " + ex.getMessage());
-            throw new RuntimeException(ex);
-        }
+       try {
+           Connection con = TransactionContext.getConnection();
+           try (Statement st = con.createStatement()) {
+
+               return st.executeUpdate(sql);
+           } catch (Exception ex) {
+               System.out.println("ERROR al insertar Area: " + ex.getMessage());
+               throw new RuntimeException(ex);
+           }
+       }catch(Exception ex){
+           System.out.println("ERROR al insertar Area: " + ex.getMessage());
+           throw new RuntimeException(ex);
+       }
     }
 
     @Override
@@ -35,7 +40,7 @@ public class AreaImpl implements AreaDAO {
 
         //dentro del try ponemos la conexion para que cuando
         // termine se cierre sola
-        try(Connection con = DBManager.getInstance().getConnection();
+        try(Connection con = TransactionContext.getConnection();
             Statement st = con.createStatement()){
             return st.executeUpdate(sql);
         }catch (Exception ex){

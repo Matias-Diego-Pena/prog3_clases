@@ -1,5 +1,6 @@
 package pe.edu.pucp.softprog.rrhh.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Area {
@@ -9,6 +10,11 @@ public class Area {
 	private boolean activo;
 
 	public Area(){};
+
+	public Area(String nombre) {
+		this.nombre = nombre;
+		this.empleados = new ArrayList<>();
+	}
 
 	public Area(String nombre, boolean activo) {
 		this.nombre = nombre;
@@ -48,5 +54,9 @@ public class Area {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public void agregarEmpeado (Empleado emp){
+		this.empleados.add(emp);
 	}
 }

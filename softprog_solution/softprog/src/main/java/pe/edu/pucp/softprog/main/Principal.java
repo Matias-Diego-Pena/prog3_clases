@@ -25,6 +25,7 @@ import java.util.List;
 
 public class Principal {
     public static void main(String[] args){
+        /*
         System.out.println("hola");
 
         Area area = new Area();
@@ -110,6 +111,35 @@ public class Principal {
             System.out.println(ex.getMessage());
             throw new RuntimeException(ex);
         }
+
+        */
+
+        //----
+
+        Area areaNew = new Area("DOCENCIA UNIVERSITARIA");
+
+        Empleado emp1 = new Empleado("56232178","SANDRA"
+                ,"HUAYPAYA",'F',new Date(),"GESTOR CARRERA"
+                ,2500,true);
+        Empleado emp2 = new Empleado("23217865","RONY"
+                ,"CUEVA",'M',new Date(),"COORDINADOR"
+                ,1500,true);
+        Empleado emp3 = new Empleado("89128791","CLAUDIA"
+                ,"ZAPATA",'F',new Date(),"ACREDITORA"
+                ,1500,true);
+
+        areaNew.agregarEmpeado(emp1);
+        areaNew.agregarEmpeado(emp2);
+        areaNew.agregarEmpeado(emp3);
+
+        IAraeaBO areaBO = new AreaBOImpl();
+
+        areaBO.insertarAreaConEmpleado(areaNew);
+
+        //nos piden ejecutar varios DAO's de forma atómica,
+        //esto se da en la capa de bussiness
+
+        //un DAO no puede llamar a otro DAO, en caso se necesite hacer esto, se tiene que hacer dentro del bussiness
 
 
     }

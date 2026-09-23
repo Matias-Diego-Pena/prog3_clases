@@ -1,6 +1,7 @@
 package pe.edu.pucp.softprog.rrhh.imp;
 
 import pe.edu.pucp.softprog.config.DBManager;
+import pe.edu.pucp.softprog.config.TransactionContext;
 import pe.edu.pucp.softprog.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.softprog.rrhh.model.Empleado;
 
@@ -67,8 +68,8 @@ public class EmpleadoImpl implements EmpleadoDAO {
         // termine se cierre sola
 
         //ahora hacemos 2 try, uno para la conexion y otro para los statement
-        try(Connection con = DBManager.getInstance().getConnection()){
-
+        try{
+            Connection con = TransactionContext.getConnection();
             con.setAutoCommit(false);
             try(PreparedStatement pst1 = con.prepareStatement(sql1);
                 PreparedStatement pst2 = con.prepareStatement(sql2);
@@ -104,10 +105,6 @@ public class EmpleadoImpl implements EmpleadoDAO {
             throw new RuntimeException(ex);
         }
     }
-
-
-
-
 
     @Override
     public int modificar(Empleado empleado) {

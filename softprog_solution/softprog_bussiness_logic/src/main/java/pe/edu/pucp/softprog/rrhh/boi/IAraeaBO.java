@@ -5,4 +5,5 @@ import pe.edu.pucp.softprog.rrhh.model.Area;
 
 
 public interface IAraeaBO extends IBaseBO<Area> {
+    int insertarAreaConEmpleado(Area area);
 }

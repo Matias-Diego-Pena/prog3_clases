@@ -1,18 +1,24 @@
 package pe.edu.pucp.softprog.rrhh.bo;
 
+import pe.edu.pucp.softprog.config.TransactionContext;
 import pe.edu.pucp.softprog.rrhh.boi.IAraeaBO;
 import pe.edu.pucp.softprog.rrhh.dao.AreaDAO;
+import pe.edu.pucp.softprog.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.softprog.rrhh.imp.AreaImpl;
+import pe.edu.pucp.softprog.rrhh.imp.EmpleadoImpl;
 import pe.edu.pucp.softprog.rrhh.model.Area;
+import pe.edu.pucp.softprog.rrhh.model.Empleado;
 
 import java.util.List;
 
 public class AreaBOImpl implements IAraeaBO {
 
     private AreaDAO daoArea;
+    private EmpleadoDAO daoEmpleado;
 
     public AreaBOImpl(){
         daoArea = new AreaImpl();
+        daoEmpleado = new EmpleadoImpl();
     }
 
     @Override
@@ -48,5 +54,24 @@ public class AreaBOImpl implements IAraeaBO {
     @Override
     public Area obtenerPorId(int idArea) {
         return null;
+    }
+
+    @Override
+    public int insertarAreaConEmpleado(Area area) {
+
+        try {
+            daoArea.insertar(area);
+            for (Empleado emp : area.getEmpleados()) {
+                emp.setArea(area);
+                daoEmpleado.insertar(emp);
+            }
+            TransactionContext.commit();
+            return 1;
+        }catch(Exception ex) {
+            TransactionContext.rollback();
+            throw new RuntimeException("Error: " + ex.getMessage());
+        } finally{
+            TransactionContext.close();
+        }
     }
 }
