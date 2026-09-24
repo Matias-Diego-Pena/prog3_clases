@@ -1,0 +1,145 @@
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
+--
+-- Host: mysql-clases-matias.cb8wai24tylj.us-east-1.rds.amazonaws.com    Database: prog3
+-- ------------------------------------------------------
+-- Server version	8.4.11
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
+
+--
+-- GTID state at the beginning of the backup 
+--
+
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
+
+--
+-- Table structure for table `area`
+--
+
+DROP TABLE IF EXISTS `area`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `area` (
+  `id_area` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `activa` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id_area`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `area`
+--
+
+LOCK TABLES `area` WRITE;
+/*!40000 ALTER TABLE `area` DISABLE KEYS */;
+INSERT INTO `area` VALUES (1,'RECURSOS HUMANNOS',1),(2,'FISICA',0),(3,'FISICA',1),(4,'DIRECCION ACADEMICA',1),(5,'DIRECCION ACADEMICA',1),(6,'DIRECCION ACADEMICA',1),(7,'DIRECCION ACADEMICA',1),(8,'DIRECCION ACADEMICA',1),(9,'DIRECCION ACADEMICA',1),(10,'DIRECCION ACADEMICA',1),(11,'DIRECCION ACADEMICA',1),(12,'DIRECCION ACADEMICA',1),(13,'DIRECCION ACADEMICA',1),(14,'DIRECCION ACADEMICA',1),(15,'DIRECCION ACADEMICA',1),(16,'DIRECCION ACADEMICA',1),(17,'DIRECCION ACADEMICA',1),(18,'DIRECCION ACADEMICA',1),(19,'DIRECCION ACADEMICA',1),(20,'DIRECCION ACADEMICA',1),(21,'DIRECCION ACADEMICA',1),(22,'DIRECCION ACADEMICA',1),(23,'DIRECCION ACADEMICA',1),(24,'DIRECCION ACADEMICA',1),(25,'RRHH',1),(26,'DOCENCIA UNIVERSITARIA',1);
+/*!40000 ALTER TABLE `area` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cliente` (
+  `id_cliente` int NOT NULL,
+  `linea_credito` decimal(10,2) DEFAULT NULL,
+  `categoria` enum('STANDARD','VIP','PLATINIUM') DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`),
+  CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `persona` (`id_persona`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (15,5000.00,'VIP'),(17,2100.00,'STANDARD'),(19,2100.00,'STANDARD'),(21,2100.00,'STANDARD'),(23,2100.00,'STANDARD'),(25,2100.00,'STANDARD'),(27,2100.00,'STANDARD'),(30,2100.00,'STANDARD'),(32,2100.00,'STANDARD');
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `empleado`
+--
+
+DROP TABLE IF EXISTS `empleado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `empleado` (
+  `id_empleado` int NOT NULL,
+  `fid_area` int DEFAULT NULL,
+  `cargo` varchar(45) DEFAULT NULL,
+  `sueldo` decimal(10,2) DEFAULT NULL,
+  `activo` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id_empleado`),
+  KEY `fid_area` (`fid_area`),
+  CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `persona` (`id_persona`),
+  CONSTRAINT `empleado_ibfk_2` FOREIGN KEY (`fid_area`) REFERENCES `area` (`id_area`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empleado`
+--
+
+LOCK TABLES `empleado` WRITE;
+/*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
+INSERT INTO `empleado` VALUES (4,1,'JEFE DE VENTAS',3500.00,1),(7,1,'INFORMATICO',2500.00,1),(9,10,'INFORMATICO',2500.00,1),(11,12,'INFORMATICO',2500.00,1),(12,1,'JEFE DE VENTAS',5500.00,1),(13,14,'INFORMATICO',2500.00,1),(14,15,'INFORMATICO',2500.00,1),(16,16,'INFORMATICO',2500.00,1),(18,17,'INFORMATICO',2500.00,1),(20,18,'INFORMATICO',2500.00,1),(22,19,'INFORMATICO',2500.00,1),(24,20,'INFORMATICO',2500.00,1),(26,21,'INFORMATICO',2500.00,1),(28,22,'INFORMATICO',2500.00,1),(29,23,'INFORMATICO',2500.00,1),(31,24,'INFORMATICO',2500.00,1);
+/*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `persona`
+--
+
+DROP TABLE IF EXISTS `persona`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persona` (
+  `id_persona` int NOT NULL AUTO_INCREMENT,
+  `DNI` varchar(8) DEFAULT NULL,
+  `nombre` varchar(35) DEFAULT NULL,
+  `apellido_paterno` varchar(45) DEFAULT NULL,
+  `genero` char(1) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  PRIMARY KEY (`id_persona`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persona`
+--
+
+LOCK TABLES `persona` WRITE;
+/*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (1,'1234567','HUGO','VILLANUEVA','M','1993-10-03'),(2,'98765421','FELIPE','GONZALES','M','2026-09-22'),(3,'35357867','JOSE','VILLANUEVA','M','1993-10-03'),(4,'35357867','JOSE','VILLANUEVA','M','1993-10-03'),(5,'87132712','DIEGO','OSORIO','M','2026-09-22'),(6,'87132712','DIEGO','OSORIO','M','2026-09-22'),(7,'87132712','DIEGO','OSORIO','M','2026-09-22'),(8,'87132712','DIEGO','OSORIO','M','2026-09-22'),(9,'87132712','DIEGO','OSORIO','M','2026-09-22'),(10,'87132712','DIEGO','OSORIO','M','2026-09-22'),(11,'87132712','DIEGO','OSORIO','M','2026-09-22'),(12,'83751211','MANUEL','TUPIA','M','1987-10-05'),(13,'87132712','DIEGO','OSORIO','M','2026-09-22'),(14,'87132712','DIEGO','OSORIO','M','2026-09-22'),(15,'48321902','JOSE','PARRA','M','2007-02-02'),(16,'87132712','DIEGO','OSORIO','M','2026-09-22'),(17,'97133456','MARIA','GUEVARA','F','2026-09-22'),(18,'87132712','DIEGO','OSORIO','M','2026-09-22'),(19,'97133456','MARIA','GUEVARA','F','2026-09-22'),(20,'87132712','DIEGO','OSORIO','M','2026-09-22'),(21,'97133456','MARIA','GUEVARA','F','2026-09-22'),(22,'87132712','DIEGO','OSORIO','M','2026-09-22'),(23,'97133456','MARIA','GUEVARA','F','2026-09-22'),(24,'87132712','DIEGO','OSORIO','M','2026-09-22'),(25,'97133456','MARIA','GUEVARA','F','2026-09-22'),(26,'87132712','DIEGO','OSORIO','M','2026-09-22'),(27,'97133456','MARIA','GUEVARA','F','2026-09-22'),(28,'87132712','DIEGO','OSORIO','M','2026-09-22'),(29,'87132712','DIEGO','OSORIO','M','2026-09-22'),(30,'97133456','MARIA','GUEVARA','F','2026-09-22'),(31,'87132712','DIEGO','OSORIO','M','2026-09-22'),(32,'97133456','MARIA','GUEVARA','F','2026-09-22');
+/*!40000 ALTER TABLE `persona` ENABLE KEYS */;
+UNLOCK TABLES;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-09-23 14:48:48
