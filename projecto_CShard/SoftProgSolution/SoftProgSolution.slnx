@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SoftProg/SoftProg.csproj" />
+  <Project Path="SoftProgDomain/SoftProgDomain.csproj" />
+</Solution>
